@@ -6,8 +6,32 @@
 using namespace std;
 using namespace sf;
 
-// 손님 클래스
-class guest {
+// 배경
+class set_background_counter {
 public:
-	string guests[5] = { "손님1", "손님2", "손님3", "손님4", "손님5" };
+	int set_img() {
+		// 카운터 배경화면 이미지
+		Texture counterImageTexture;
+		if (!counterImageTexture.loadFromFile(counterImage)) {
+
+			return -1;
+		}
+		
+		// 카운터 배경화면 이미지 저장
+		Sprite counterImageSprite;
+		counterImageSprite.setTexture(counterImageTexture);
+
+		// 말풍선 이미지
+		Texture speechImageTexture;
+		if (!speechImageTexture.loadFromFile(speechBubbleImage)) {
+			return -1;
+		}
+
+		// 말풍선 이미지 저장
+		Sprite speechBubbleSprite;
+		speechBubbleSprite.setTexture(counterImageTexture);
+	}
+private:
+	const string counterImage = "./img/counter_background.png";  // 카운터 배경 이미지
+	const string speechBubbleImage = "./img/speech_bubble.png";  // 말풍선 이미지
 };

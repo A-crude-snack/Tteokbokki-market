@@ -108,8 +108,11 @@ int main()
 
 		}
 		else if (current_state == GameState::Counter) {  // GameState가 Counter일 때
-			// 카운터 코드
+			c.getCounterCheckoutSprite().setPosition(0, 460);  // 카운터 이미지 위치 설정
+
 			window.draw(c.getCounterBackgroundSprite());
+
+			window.draw(c.getCounterCheckoutSprite());
 		}
 		else if (current_state == GameState::Kitchen) {// GameState가 Kitchen일 때
 			// 주방 코드

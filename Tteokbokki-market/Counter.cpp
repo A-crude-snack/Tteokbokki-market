@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+ï»¿#define _CRT_SECURE_NO_WARNINGS
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stdlib.h>
@@ -8,68 +8,110 @@
 using namespace std;
 using namespace sf;
 
-// ¹è°æ
+// ë°°ê²½
 class Counter {
 public:
 	Counter() {
-		// Ä«¿îÅÍ ¹è°æÈ­¸é ÀÌ¹ÌÁö
-		if (!counter_img_texture.loadFromFile(counter_img)) {
-			cerr << "ÀÌ¹ÌÁö¸¦ ·ÎµåÇÒ ¼ö ¾øÀ½" << endl;
+		// ì¹´ìš´í„° ë°°ê²½í™”ë©´ ì´ë¯¸ì§€
+		if (!counter_texture.loadFromFile(counter_img)) {
+			cerr << "ì´ë¯¸ì§€ë¥¼ ë¡œë“œí•  ìˆ˜ ì—†ìŒ" << endl;
 		}
-		// Ä«¿îÅÍ ¹è°æÈ­¸é ÀÌ¹ÌÁö ÀúÀå
-		counter_img_sprite.setTexture(counter_img_texture);
+		// ì¹´ìš´í„° ë°°ê²½í™”ë©´ ì´ë¯¸ì§€ ì €ì¥
+		counter_sprite.setTexture(counter_texture);
 
-		// Ä«¿îÅÍ °è»ê´ë ÀÌ¹ÌÁö
-		if (!counter_checkout_img_texture.loadFromFile(counter_checkout_img)) {
-			cerr << "ÀÌ¹ÌÁö¸¦ ·ÎµåÇÒ ¼ö ¾øÀ½" << endl;
+		// ì¹´ìš´í„° ê³„ì‚°ëŒ€ ì´ë¯¸ì§€
+		if (!counter_checkout_texture.loadFromFile(counter_checkout_img)) {
+			cerr << "ì´ë¯¸ì§€ë¥¼ ë¡œë“œí•  ìˆ˜ ì—†ìŒ" << endl;
 		}
-		// Ä«¿îÅÍ ¹è°æÈ­¸é ÀÌ¹ÌÁö ÀúÀå
-		counter_checkout_img_sprite.setTexture(counter_checkout_img_texture);
+		// ì¹´ìš´í„° ë°°ê²½í™”ë©´ ì´ë¯¸ì§€ ì €ì¥
+		counter_checkout_sprite.setTexture(counter_checkout_texture);
 
-		// ¸»Ç³¼± ÀÌ¹ÌÁö
-		if (!speech_img_texture.loadFromFile(speech_bubble_img)) {
-			cerr << "ÀÌ¹ÌÁö¸¦ ·ÎµåÇÒ ¼ö ¾øÀ½" << endl;
+		// ì£¼ë°© ì´ë™ ë²„íŠ¼ ì´ë¯¸ì§€
+		if (!next_page_texture.loadFromFile(next_page_btn_img)) {
+			cerr << "ì´ë¯¸ì§€ë¥¼ ë¡œë“œí•  ìˆ˜ ì—†ìŒ" << endl;
 		}
-		// ¸»Ç³¼± ÀÌ¹ÌÁö ÀúÀå
-		speech_bubble_sprite.setTexture(speech_img_texture);
+		// ì´ë¯¸ì§€ ì €ì¥
+		next_page_sprite.setTexture(next_page_texture);
+
+		// ë‚˜ê°€ê¸° ë²„íŠ¼ ì´ë¯¸ì§€		
+		if (!exit_texture.loadFromFile(exit_btn_img)) {
+			cerr << "ì´ë¯¸ì§€ë¥¼ ë¡œë“œí•  ìˆ˜ ì—†ìŒ" << endl;
+		}
+		// ì´ë¯¸ì§€ ì €ì¥
+		exit_sprite.setTexture(exit_texture);
 	}
 
-	// ÀÌ¹ÌÁö Ãâ·Â ¿À·ù ÇØ°á: ÀÌ¹ÌÁö ·ÎµùÀº ÇÑ ¹ø¸¸ ÇÏ°í, ±×·ÎºÎÅÍ »ı¼ºµÈ Sprite °´Ã¼¸¦ °è¼Ó »ç¿ëÇÏµµ·Ï Å¬·¡½º¸¦ ¼öÁ¤
-	// Ä«¿îÅÍ ¹è°æÈ­¸é
+	// ì´ë¯¸ì§€ ì¶œë ¥ ì˜¤ë¥˜ í•´ê²°: ì´ë¯¸ì§€ ë¡œë”©ì€ í•œ ë²ˆë§Œ í•˜ê³  ê·¸ë¡œë¶€í„° ìƒì„±ëœ Sprite ê°ì²´ë¥¼ ê³„ì† ì‚¬ìš©í•˜ë„ë¡ í´ë˜ìŠ¤ ìˆ˜ì •
+	// ì¹´ìš´í„° ë°°ê²½í™”ë©´
 	Sprite& getCounterBackgroundSprite() {
-		return counter_img_sprite;
+		return counter_sprite;
 	}
 
-	// Ä«¿îÅÍ °è»ê´ë
+	// ì¹´ìš´í„° ê³„ì‚°ëŒ€
 	Sprite& getCounterCheckoutSprite() {
-		return counter_checkout_img_sprite;
+		return counter_checkout_sprite;
 	}
 
-	// ¼Õ´Ô ¸»Ç³¼±
-	Sprite& getTextSprite() {
-		return speech_bubble_sprite;
+	// ì£¼ë°© ì´ë™ ë²„íŠ¼
+	Sprite& getNextBtnSprite() {
+		return next_page_sprite;
+	}
+
+	// ë‚˜ê°€ê¸° ë²„íŠ¼
+	Sprite& getExitBtn() {
+		return exit_sprite;
 	}
 
 private:
-	const string counter_img = "./img/counter_background.png";  // Ä«¿îÅÍ ¹è°æ ÀÌ¹ÌÁö
-	const String counter_checkout_img = "./img/counter_checkout.png";  // Ä«¿îÅÍ °è»ê´ë ÀÌ¹ÌÁö
-	const string speech_bubble_img = "./img/speech_bubble.png";  // ¸»Ç³¼± ÀÌ¹ÌÁö
+	const string counter_img = "./img/counter_background.png";  // ì¹´ìš´í„° ë°°ê²½ ì´ë¯¸ì§€
+	const String counter_checkout_img = "./img/counter_checkout.png";  // ì¹´ìš´í„° ê³„ì‚°ëŒ€ ì´ë¯¸ì§€
+	const string next_page_btn_img = "./img/next_page_btn.png";  // ì£¼ë°©ìœ¼ë¡œ ê°€ëŠ” í™”ì‚´í‘œ ë²„íŠ¼ ì´ë¯¸ì§€
+	const string exit_btn_img = "./img/exit_btn.png";  // ë‚˜ê°€ê¸° ë²„íŠ¼ ì´ë¯¸ì§€
 
-	Texture counter_img_texture;
-	Sprite counter_img_sprite;
+	Texture counter_texture;
+	Sprite counter_sprite;
 
-	Texture counter_checkout_img_texture;
-	Sprite counter_checkout_img_sprite;
+	Texture counter_checkout_texture;
+	Sprite counter_checkout_sprite;
 
-	Texture speech_img_texture;
-	Sprite speech_bubble_sprite;
+	Texture next_page_texture;
+	Sprite next_page_sprite;
+
+	Texture exit_texture;
+	Sprite exit_sprite;
 };
 
-class Recipe {
+class Customer {
 public:
-	// ·£´ı ÁÖ¹® ÇÔ¼ö
+	Customer() {
+		// ë§í’ì„  ì´ë¯¸ì§€
+		if (!speech_texture.loadFromFile(speech_bubble_img)) {
+			cerr << "ì´ë¯¸ì§€ë¥¼ ë¡œë“œí•  ìˆ˜ ì—†ìŒ" << endl;
+		}
+		// ë§í’ì„  ì´ë¯¸ì§€ ì €ì¥
+		speech_sprite.setTexture(speech_texture);
+
+		// OK ë²„íŠ¼ ì´ë¯¸ì§€
+		if (!okay_btn_texture.loadFromFile(okay_btn_img)) {
+			cerr << "ì´ë¯¸ì§€ë¥¼ ë¡œë“œí•  ìˆ˜ ì—†ìŒ" << endl;
+		}
+		// OK ë²„íŠ¼ ì´ë¯¸ì§€ ì €ì¥
+		okay_btn_sprite.setTexture(okay_btn_texture);
+	}
+
+	// ì†ë‹˜ ë§í’ì„ 
+	Sprite& getTextSprite() {
+		return speech_sprite;
+	}
+
+	// OK ë²„íŠ¼
+	Sprite& getOkayBtnSprite() {
+		return okay_btn_sprite;
+	}
+
+	// ëœë¤ ì£¼ë¬¸ í•¨ìˆ˜
 	string randomOrder() {
-		srand((unsigned int)time(NULL));
+		srand(time(NULL));
 
 		for (int i = 0; i < order.size(); i++) {
 			order_idx[i] = rand() % order[i].size();
@@ -78,19 +120,32 @@ public:
 		return re;
 	}
 
-private:
-	vector<vector<string>> order = {
-		{"±âº»", "Â¥Àå", "¸¶¶ó", "Ä¡Áî"},
-		{" ¶±ººÀÌ", " ¶óººÀÌ"},
-		{"¿¡ ¶±Àº ±ä°É·Î ÁÖ¼¼¿ä", "¿¡ ¶±Àº Ä¡Áî¶±À¸·Î ÇØÁÖ¼¼¿ä", "¿¡ ¾ßÃ¤´Â ¸ğµÎ »¾ÁÖ¼¼¿ä", "¿¡ Ä¡Áî ³Ö¾îÁÖ¼¼¿ä", "¿¡ ¾ßÃ¤¸¸ ³Ö¾îÁÖ¼¼¿ä",
-		"¿¡ ¾î¹¬¸¸ ³Ö¾îÁÖ¼¼¿ä", "¿¡ ¼Ò¼¼Áö¸¸ ³Ö¾îÁÖ¼¼¿ä", "¿¡ Ä¡Áî¸¸ ³Ö¾îÁÖ¼¼¿ä", "¿¡ ¼Ò¼¼Áö¸¸ »©ÁÖ¼¼¿ä",
-		"¿¡ ¾î¹¬ »©°í ´Ù ÁÖ¼¼¿ä", "¿¡ Ã¤¼Ò´Â ¾çÆÄ¸¸ ³Ö¾îÁÖ¼¼¿ä", "¿¡ ¶ó¸é»ç¸®¸¸ ³Ö¾îÁÖ¼¼¿ä", "¿¡ ¶ó¸é»ç¸® ³Ö¾îÁÖ¼¼¿ä", "ÁÖ¼¼¿ä"}};
+	// ëœë¤ ì†ë‹˜ ì´ë¯¸ì§€
+	string randomCustomer() {
+		srand(time(NULL));
 
-	vector<vector<string>> menu = {
-		{"±âº»¶±", "Ä¡Áî¶±", "±ä¶±", "¶ó¸é»ç¸®"},
-		{"±âº»¼Ò½º", "Â¥Àå¼Ò½º", "¸¶¶ó¼Ò½º", "Ä¡Áî"},
-		{"ÆÄ", "¾çÆÄ", "¾î¹¬", "¼Ò¼¼Áö"} };
+		customer_idx = rand() % 3;
+
+		return customer[customer_idx];
+	}
+private:
+	const string speech_bubble_img = "./img/speech_bubble.png";  // ë§í’ì„  ì´ë¯¸ì§€
+	Texture speech_texture;
+	Sprite speech_sprite;
+
+	// ì£¼ë¬¸ í™•ì¸ ë²„íŠ¼
+	const String okay_btn_img = "./img/OK_btn.png";
+	Texture okay_btn_texture;
+	Sprite okay_btn_sprite;
+
+	// ëœë¤ ì£¼ë¬¸ ë‚´ìš©
+	vector<vector<string>> order = {
+		{"Original", "Jajang", "Mala", "Cheese"},
+		{" Tteokbbokki", " Rabokki"},
+		{" please"} };
+	vector<string> customer = { "./img/customer1.png", "./img/customer2.png", "./img/customer3.png" };
 
 	string re;
-	int order_idx[SIZE];
+	int order_idx[SIZE] = { 0 };
+	int customer_idx = 0;
 };

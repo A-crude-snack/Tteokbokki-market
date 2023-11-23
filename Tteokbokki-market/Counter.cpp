@@ -84,19 +84,23 @@ private:
 class Customer {
 public:
 	Customer() {
+		// 랜덤 손님 이미지
+		srand(time(NULL));
+
+		customer_idx = rand() % 3;
+		customer_img = customers[customer_idx];
+
+		if(!customer_texture.loadFromFile(customer_img)) {
+			cerr << "이미지를 로드할 수 없음" << endl;
+		}
+		customer_sprite.setTexture(customer_texture);
+
 		// 말풍선 이미지
 		if (!speech_texture.loadFromFile(speech_bubble_img)) {
 			cerr << "이미지를 로드할 수 없음" << endl;
 		}
 		// 말풍선 이미지 저장
 		speech_sprite.setTexture(speech_texture);
-
-		// OK 버튼 이미지
-		if (!okay_btn_texture.loadFromFile(okay_btn_img)) {
-			cerr << "이미지를 로드할 수 없음" << endl;
-		}
-		// OK 버튼 이미지 저장
-		okay_btn_sprite.setTexture(okay_btn_texture);
 	}
 
 	// 손님 말풍선
@@ -104,9 +108,9 @@ public:
 		return speech_sprite;
 	}
 
-	// OK 버튼
-	Sprite& getOkayBtnSprite() {
-		return okay_btn_sprite;
+	// 랜덤 손님
+	Sprite& getRandomCustomer() {
+		return customer_sprite;
 	}
 
 	// 랜덤 주문 함수
@@ -120,30 +124,20 @@ public:
 		return re;
 	}
 
-	// 랜덤 손님 이미지
-	string randomCustomer() {
-		srand(time(NULL));
-
-		customer_idx = rand() % 3;
-
-		return customer[customer_idx];
-	}
 private:
 	const string speech_bubble_img = "./img/speech_bubble.png";  // 말풍선 이미지
 	Texture speech_texture;
 	Sprite speech_sprite;
-
-	// 주문 확인 버튼
-	const String okay_btn_img = "./img/OK_btn.png";
-	Texture okay_btn_texture;
-	Sprite okay_btn_sprite;
 
 	// 랜덤 주문 내용
 	vector<vector<string>> order = {
 		{"Original", "Jajang", "Mala", "Cheese"},
 		{" Tteokbbokki", " Rabokki"},
 		{" please"} };
-	vector<string> customer = { "./img/customer1.png", "./img/customer2.png", "./img/customer3.png" };
+	vector<string> customers = { "./img/customer1.png", "./img/customer2.png", "./img/customer3.png", "./img/customer4.png", "./img/customer5.png" };
+	string customer_img;
+	Texture customer_texture;
+	Sprite customer_sprite;
 
 	string re;
 	int order_idx[SIZE] = { 0 };

@@ -6,7 +6,6 @@
 #include <string>
 #include <Windows.h>
 #include "./Counter.cpp";
-#include "./Order.cpp";
 
 using namespace std;
 using namespace sf;
@@ -120,26 +119,45 @@ int main()
 			// 손님 주문
 			if (customer_order.getString().isEmpty()) {
 				customer_order.setString(cu.randomOrder());
-				customer_order.setCharacterSize(20);
+				customer_order.setCharacterSize(30);
 				customer_order.setFont(font);
 				customer_order.setFillColor(Color::Black);
 
 				cout << customer_order.getString().toAnsiString() << endl;
 			}
 
+			// 위치
 			c.getCounterCheckoutSprite().setPosition(0, 460);
-			cu.getTextSprite().setPosition(600, 100);
+			cu.getTextSprite().setPosition(430, 70);
 			c.getNextBtnSprite().setPosition(880, 530);
 			c.getExitBtn().setPosition(30, 525);
-			customer_order.setPosition(620, 130);
+			cu.getOkayBtnSprite().setPosition(720, 165);
+			customer_order.setPosition(450, 100);
+
+			if (event.type == Event::MouseButtonPressed && !is_btn_clicked) {
+
+				// 마우스의 위치 좌표를 가져와 버튼 클릭 여부 확인
+				Vector2i mousePosition = Mouse::getPosition(window);
+				if (c.getExitBtn().getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))) {
+					is_btn_clicked = true;
+					delayClock.restart();  // 클릭된 시간 기록, 타이머 리셋
+				}
+			}
 
 			window.clear();
-			window.draw(c.getCounterBackgroundSprite());
-			window.draw(c.getCounterCheckoutSprite());
-			window.draw(c.getNextBtnSprite());
-			window.draw(c.getExitBtn());
-			window.draw(cu.getTextSprite());
-			window.draw(customer_order);
+			window.draw(c.getCounterBackgroundSprite());  // 카운터 배경
+			window.draw(c.getCounterCheckoutSprite());  // 카운터 계산대
+			window.draw(c.getNextBtnSprite());  // 주방 이동 버튼
+			window.draw(c.getExitBtn());  // 나가기 버튼
+			window.draw(cu.getTextSprite());  // 말풍선
+			window.draw(cu.getOkayBtnSprite());  // OK 버튼
+			window.draw(customer_order);  // 주문
+
+			// 버튼을 클릭했을 때
+			if (is_btn_clicked) {
+				current_state = GameState::Main;
+				is_btn_clicked = false;
+			}
 		}
 		else if (current_state == GameState::Kitchen) {  // GameState가 Kitchen일 때
 			// 주방 코드

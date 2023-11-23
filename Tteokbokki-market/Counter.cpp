@@ -90,11 +90,23 @@ public:
 		}
 		// 말풍선 이미지 저장
 		speech_sprite.setTexture(speech_texture);
+
+		// OK 버튼 이미지
+		if (!okay_btn_texture.loadFromFile(okay_btn_img)) {
+			cerr << "이미지를 로드할 수 없음" << endl;
+		}
+		// OK 버튼 이미지 저장
+		okay_btn_sprite.setTexture(okay_btn_texture);
 	}
 
 	// 손님 말풍선
 	Sprite& getTextSprite() {
 		return speech_sprite;
+	}
+
+	// OK 버튼
+	Sprite& getOkayBtnSprite() {
+		return okay_btn_sprite;
 	}
 
 	// 랜덤 주문 함수
@@ -118,9 +130,13 @@ public:
 	}
 private:
 	const string speech_bubble_img = "./img/speech_bubble.png";  // 말풍선 이미지
-
 	Texture speech_texture;
 	Sprite speech_sprite;
+
+	// 주문 확인 버튼
+	const String okay_btn_img = "./img/OK_btn.png";
+	Texture okay_btn_texture;
+	Sprite okay_btn_sprite;
 
 	// 랜덤 주문 내용
 	vector<vector<string>> order = {
